@@ -1,16 +1,73 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>setlist</title>
-    <link rel="shortcut icon" href="images/giphy.jpeg">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/reset.css">
-  </head>
-  <body>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="javascript/app.js"></script>
+<head>
+  <meta charset="utf-8">
+  <title>setlist</title>
+  <!-- favicon -->
+  <link rel="shortcut icon" href="">
+  <!-- stylesheets -->
+  <!-- <link rel="stylesheet" href="css/reset.css"> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/slate/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- javascript -->
 
-  </body>
+
+</head>
+
+<body>
+  <!-- header -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <header>
+          <h1>SET<span>LIST</span></h1>
+        </header>
+      </div>
+      <div class="col-md-3" id="login">
+        <input type="text" name="" value="Username">
+        <input type="text" name="" value="Password">
+      </div>
+    </div>
+  </div>
+  <!-- search -->
+  <div class="container search">
+    <div class="row">
+      <div class="col-md-3" id="">
+      </div>
+      <div class="col-md-6" id="search">
+        <button type="button" name="button" id="artist">Artist Name</button>
+        <button type="button" name="button" id="city">City</button>
+
+      </div>
+      <div class="col-md-3" id="">
+      </div>
+    </div>
+  </div>
+  <!-- results -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3" id="details">
+      </div>
+      <div class="col-md-6" id="results">
+      </div>
+      <div class="col-md-3" id="favorites">
+      </div>
+    </div>
+  </div>
+  <!-- footer -->
+  <div class="container">
+    <footer>Copyright &copy Team SetList</footer>
+  </div>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript" src="assets/javascript/app.js"></script>
+
+
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script> -->
+
+</body>
+
 </html>
