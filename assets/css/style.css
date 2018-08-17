@@ -1,0 +1,29 @@
+/*
+  colors
+  0092D8
+  333333
+  EBF2F6
+  999999
+  FFFFFF
+ */
+header{
+  text-align: center;
+  border-bottom: 7px solid blue;
+  padding: 25px;
+}
+#login {
+  padding: 25px;
+}
+.search {
+  padding: 25px;
+  text-align: left;
+}
+
+footer {
+  text-align: center;
+}
+
+.input {
+  display: block;
+  margin: 20px 0;
+}
