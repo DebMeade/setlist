@@ -11,6 +11,9 @@ $(document).ready(function() {
       firebase.initializeApp(config);
 
       database = firebase.database;
+
+      $("#loginEmail").hide();
+      $("#loginPsswd").hide();
   // artist click
   function artistClick() {
     // empty div
@@ -148,6 +151,7 @@ $(document).on("click", "#googleLogin", function() {
     firebase.auth().signInWithRedirect(provider);
 
     firebase.auth().getRedirectResult().then(function(result) {
+        console.log(result);
         if (result.credential) {
           // This gives you a Google Access Token. You can use it to access the Google API.
           var token = result.credential.accessToken;
@@ -167,6 +171,43 @@ $(document).on("click", "#googleLogin", function() {
         var credential = error.credential;
         // ...
       });
+})
+
+$(document).on("click", "#createAcct", function() {
+
+    var email = $("#newEmail").val();
+    var password = $("#NewPsswd").val();
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        console.log(errorCode);
+        var errorMessage = error.message;
+        console.log(errorMessage);
+        // ...
+      });
+
+      window.location.replace("index.html");
+})
+
+$(document).on("click", "#emailLogin", function() {
+    if (!($("#loginEmail").visible())) {
+
+        $("#loginEmail").show();
+        $("#loginPsswd").show();
+    } else {
+
+    var email = $("#loginEmail").val();
+    var password = $("#loginPsswd").val();
+
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        console.log(errorCode);
+        var errorMessage = error.message;
+        console.log(errorMessage);
+        // ...
+      });
+    }
 })
   // object arrays
   var evtArray = [];
