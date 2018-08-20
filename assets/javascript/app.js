@@ -174,9 +174,14 @@ $(document).on("click", "#googleLogin", function() {
 })
 
 $(document).on("click", "#createAcct", function() {
+    if ($("#loginEmail").is(':hidden')) {
 
+        $("#loginEmail").show();
+        $("#loginPsswd").show();
+    } else {
     var email = $("#newEmail").val();
     var password = $("#NewPsswd").val();
+    console.log(email, password);
     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -185,12 +190,11 @@ $(document).on("click", "#createAcct", function() {
         console.log(errorMessage);
         // ...
       });
-
-      window.location.replace("index.html");
+    }
 })
 
 $(document).on("click", "#emailLogin", function() {
-    if (!($("#loginEmail").visible())) {
+    if ($("#loginEmail").is(':hidden')) {
 
         $("#loginEmail").show();
         $("#loginPsswd").show();
@@ -198,7 +202,7 @@ $(document).on("click", "#emailLogin", function() {
 
     var email = $("#loginEmail").val();
     var password = $("#loginPsswd").val();
-
+    console.log(email, password);
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
