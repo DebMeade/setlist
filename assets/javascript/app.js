@@ -20,16 +20,16 @@ $(document).ready(function() {
     $("#search").empty();
     // artist and city button
     var searchHead = "<h2>Search</h2>";
-    var artButton = "<button type='button' name='button' class='buttonSpace' id='artist'>Artist Name</button>";
-    var cityButton = "<button type='button' name='button' class='buttonSpace' id='city'>City</button>";
+    var artButton = "<button type='button' name='button' class='btn btn-secondary, buttonSpace' id='artist'>Artist Name</button>";
+    var cityButton = "<button type='button' name='button' class='btn btn-secondary, buttonSpace' id='city'>City</button>";
     $("#search").append(searchHead);
     $("#search").append(artButton);
     $("#search").append(cityButton);
     // artist input
-    var artistInput = "<input type='text' value='' placeholder='Artist' name='artist' class='input searchSpace' id='artist-input'>"
+    var artistInput = "<input type='text' value='' placeholder='Artist' name='artist' class='btn btn-secondary, input, searchSpace' id='artist-input'>"
     $("#search").append(artistInput);
     // submit button
-    var submitButton = "<input type='submit' class='buttonSpace' id='submit' value='Submit'>";
+    var submitButton = "<input type='submit' class='btn btn-secondary, buttonSpace' id='submit' value='Submit'>";
     $("#search").append(submitButton);
   }
   // city click
@@ -38,24 +38,24 @@ $(document).ready(function() {
     $("#search").empty();
     // artist and city button
     var searchHead = "<h2>Search</h2>";
-    var artButton = "<input type='button' name='button' class='buttonSpace' id='artist' value='Artist Name'>";
-    var cityButton = "<input type='button' name='button' class='buttonSpace' id='city' value='City'>";
+    var artButton = "<input type='button' name='button' class='btn btn-secondary, buttonSpace' id='artist' value='Artist Name'>";
+    var cityButton = "<input type='button' name='button' class='btn btn-secondary, buttonSpace' id='city' value='City'>";
     $("#search").append(searchHead);
     $("#search").append(artButton);
     $("#search").append(cityButton);
     // search inputs
-    var cityInput = "<input type='text' value='' placeholder='City' name='city' class='input searchSpace' id='city-input'>"
+    var cityInput = "<input type='text' value='' placeholder='City' name='city' class='btn btn-secondary, input, searchSpace' id='city-input'>"
     $("#search").append(cityInput);
-    var startInput = "<input type='date' value='' placeholder='Start Date' name='start-date' class='input searchSpace' id='start-input'>"
+    var startInput = "<input type='date' value='' placeholder='Start Date' name='start-date' class='btn btn-secondary, input, searchSpace' id='start-input'>"
     $("#search").append(startInput);
-    var endInput = "<input type='date' value='' placeholder='End Date' name='end-date' class='input searchSpace' id='end-input'>"
+    var endInput = "<input type='date' value='' placeholder='End Date' name='end-date' class='btn btn-secondary, input, searchSpace' id='end-input'>"
     $("#search").append(endInput);
-    var genreInput = "<input type='text' value='' placeholder='Venue' name='venue' class='input searchSpace' id='venue-input'>"
+    var genreInput = "<input type='text' value='' placeholder='Venue' name='venue' class='btn btn-secondary, input, searchSpace' id='venue-input'>"
     $("#search").append(genreInput);
-    var venueInput = "<input type='text' value='' placeholder='Genre' name='venue' class='input searchSpace' id='genre-input'>"
+    var venueInput = "<input type='text' value='' placeholder='Genre' name='venue' class='btn btn-secondary, input, searchSpace' id='genre-input'>"
     $("#search").append(venueInput);
     // submit button
-    var submitButton = "<input type='submit' class='buttonSpace' id='submit' value='Submit'>";
+    var submitButton = "<input type='submit' class='btn btn-secondary, buttonSpace' id='submit' value='Submit'>";
     $("#search").append(submitButton);
   }
   function submitClick() {
