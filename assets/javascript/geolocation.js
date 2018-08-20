@@ -12,7 +12,7 @@
     var request = new XMLHttpRequest();
 
     var method = 'GET';
-    var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + "," + position.coords.longitude + '&sensor=true';
+    var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + "," + position.coords.longitude + '&sensor=true';
     var async = true;
 
     request.open(method, url, async);
