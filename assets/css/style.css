@@ -98,3 +98,7 @@ img{
     size: 50%
 }
 
+.logins:hover {
+  font-weight: bold;
+  cursor: pointer; 
+}
