@@ -20,7 +20,7 @@
         var data = JSON.parse(request.responseText);
         var address = data.results[0];
         console.log("Current location: " + address.address_components[3].short_name + ", " + address.address_components[5].short_name); 
-    
+        localStorage.setItem("Current location: " + address.address_components[3].short_name + ", " + address.address_components[5].short_name);
     }
       console.log(address);
     };
