@@ -59,6 +59,12 @@ $(document).ready(function () {
     $("#search").append(submitButton);
   }
 
+  function submitClick() {
+    // var queryUrl = queryUrlGen();
+    // console.log(queryUrl);
+    ajaxSearch(queryUrlGen());
+  }
+
   function queryUrlGen() {
     var baseUrl = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=WFgrGCqmfhwpYbGIw5y87YrAwawoL8tv&segmentName=music&sort=date,asc";
     if ($("#artist-input").val()) {
