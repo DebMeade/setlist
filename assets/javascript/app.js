@@ -1,9 +1,7 @@
 
 
-
-
 $(document).ready(function () {
-    
+  
 
     // artist click
     $(document).on("click", "#artist", function () {
