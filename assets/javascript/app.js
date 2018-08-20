@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9d6036a6c08d9a9d04756642a799e7ec7cbcf9b0
 $(document).ready(function() {
 
     var config = {
@@ -86,6 +90,10 @@ $(document).ready(function() {
       $("#results").append(newDiv);
       newDiv.append(imgDiv);
       newDiv.append(infoDiv);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9d6036a6c08d9a9d04756642a799e7ec7cbcf9b0
 
       imgDiv.append($("<h2>").text(name));
       imgDiv.append("<img src='" + evtArray[i].images[0].url + "'>");
@@ -205,7 +213,7 @@ $(document).on("click", "#emailLogin", function() {
         console.log(errorCode);
         var errorMessage = error.message;
         console.log(errorMessage);
-        // ...
+        
       });
     }
 })
@@ -213,6 +221,10 @@ $(document).on("click", "#emailLogin", function() {
   var evtArray = [];
   var favArray = [];
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9d6036a6c08d9a9d04756642a799e7ec7cbcf9b0
   //onClick Events
   $(document).on("click", "#artist", artistClick);
   $(document).on("click", "#city", cityClick);
@@ -221,3 +233,7 @@ $(document).on("click", "#emailLogin", function() {
     addFavorite($(this).attr('id'));
   })
 })
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9d6036a6c08d9a9d04756642a799e7ec7cbcf9b0
