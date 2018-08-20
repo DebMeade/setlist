@@ -62,11 +62,11 @@ img{
   border: 3px solid black;
 }
 .buttonSpace {
-    width: 120px;
+    width: 50%;
     float: left;
 }
 .searchSpace {
-    width: 240px;
+    width: 100%;
     float: left;
 }
 .footer {
