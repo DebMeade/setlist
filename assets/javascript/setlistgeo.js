@@ -1,4 +1,4 @@
-  //  var location, var pos, var localState, var localCity have the data
+//  var location, var pos, var localState, var localCity have the data
      var localCity;
      var localState;
      navigator.geolocation.getCurrentPosition(function(position) {

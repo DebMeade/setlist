@@ -19,6 +19,11 @@ header{
   text-align: left;
 }
 
+/* #search {
+  justify-content: space-around;
+  display:flex;
+} */
+
 footer {
   text-align: center;
 }
@@ -27,3 +32,24 @@ footer {
   display: block;
   margin: 20px 0;
 }
+
+#myCity {
+  float: right;
+}
+/* #artist {
+  height: 200px;
+  width: 200px;
+  border-radius: 10px;
+  background-color: blue;
+  color: white;
+  font-size: x-large;
+}
+
+#city {
+  height: 200px;
+  width: 200px;
+  border-radius: 10px;
+  background-color: blue;
+  color: white;
+  font-size: x-large;
+} */
