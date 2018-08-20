@@ -58,11 +58,50 @@ $(document).ready(function() {
     var submitButton = "<input type='submit' class='btn btn-secondary, buttonSpace' id='submit' value='Submit'>";
     $("#search").append(submitButton);
   }
-  function submitClick() {
-    // var queryUrl = queryUrlGen();
-    // console.log(queryUrl);
-    ajaxSearch(queryUrlGen());
+}
+function queryUrlGen(){
+  var baseUrl = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=WFgrGCqmfhwpYbGIw5y87YrAwawoL8tv&segmentName=music&sort=date,asc";
+  if ($("#artist-input").val()) {
+    console.log($("#artist-input").val());
+    var artistInput = "&keyword=" + $("#artist-input").val().trim();
+    var artist = artistInput.split(" ").join("+");
+    var city = "&city=";
+    var startDate = "&startDateTime=";
+    var endDate = "&endDateTime=";
+    var venue = "&";
+    var genre = "&classificationName=";
+  }  else {
+    var artist = "&keyword=";
+    var city = "&city=" + $("#city-input").val().trim();
+    var startDate = "&startDateTime=" + $("#start-input").val().trim() + "T00:00:00Z";
+    var endDate = "&endDateTime=" + $("#end-input").val().trim() + "T23:59:59Z";
+    var venue = "&";
+    var genre = "&classificationName=" + $("#genre-input").val().trim();
+      }
+  var queryUrl = baseUrl + artist + city + startDate + endDate + genre;
+  return queryUrl;
+}
+function ajaxSearch(queryUrl) {
+  $.ajax({
+    url: queryUrl,
+    method: "GET",
+  }).then(function(eventObject) {
+    console.log(eventObject);
+    evtArray = eventObject._embedded.events;
+    appendEvents(evtArray);
+  })
+}
+function addFavorite(id){
+  var searchItem = evtArray[id].name;
+  for (var i = 0; i < favArray.length; i++) {
+    if (favArray[i].name.indexOf(searchItem, 0) === -1) {
+      favArray.push(evtArray[id]);
+      console.log(favArray);
+    }
   }
+$("#favorites").append("<li>" + evtArray[id].name + "</li>");
+}
+
   function appendEvents(evtArray) {
     $("#results").empty();
     var resultHead = "<h2>Events</h2>";
@@ -101,118 +140,80 @@ $(document).ready(function() {
       infoDiv.append("<a href='" + url + "' target='_blank'>Buy tickets</a>");
       infoDiv.append(mapButton);
     }
-  }
-  function queryUrlGen(){
-    var baseUrl = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=WFgrGCqmfhwpYbGIw5y87YrAwawoL8tv&segmentName=music&sort=date,asc";
-    if ($("#artist-input").val()) {
-      console.log($("#artist-input").val());
-      var artistInput = "&keyword=" + $("#artist-input").val().trim();
-      var artist = artistInput.split(" ").join("+");
-      var city = "&city=";
-      var startDate = "&startDateTime=";
-      var endDate = "&endDateTime=";
-      var venue = "&";
-      var genre = "&classificationName=";
-    }
-    else {
-      var artist = "&keyword=";
-      var city = "&city=" + $("#city-input").val().trim();
-      var startDate = "&startDateTime=" + $("#start-input").val().trim() + "T00:00:00Z";
-      var endDate = "&endDateTime=" + $("#end-input").val().trim() + "T23:59:59Z";
-      var venue = "&";
-      var genre = "&classificationName=" + $("#genre-input").val().trim();
-    }
-    var queryUrl = baseUrl + artist + city + startDate + endDate + genre;
-    return queryUrl;
-  }
-  function ajaxSearch(queryUrl) {
-    $.ajax({
-      url: queryUrl,
-      method: "GET",
-    }).then(function(eventObject) {
-      console.log(eventObject);
-      evtArray = eventObject._embedded.events;
-      appendEvents(evtArray);
-    })
-  }
-  function addFavorite(id){
-    var searchItem = evtArray[id].name;
-    for (var i = 0; i < favArray.length; i++) {
-      if (favArray[i].name.indexOf(searchItem, 0) === -1) {
-        favArray.push(evtArray[id]);
-        console.log(favArray);
-      }
-    }
-  $("#favorites").append("<li>" + evtArray[id].name + "</li>");
-}
+
 
 $(document).on("click", "#googleLogin", function() {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope('profile');
-    provider.addScope('email');
-    console.log(provider);
+  var provider = new firebase.auth.GoogleAuthProvider();
+  provider.addScope('profile');
+  provider.addScope('email');
+  console.log(provider);
 
-    firebase.auth().signInWithRedirect(provider);
+  firebase.auth().signInWithRedirect(provider);
 
-    firebase.auth().getRedirectResult().then(function(result) {
-        console.log(result);
-        if (result.credential) {
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          var token = result.credential.accessToken;
-          console.log(token);
-          // ...
-        }
-        // The signed-in user info.
-        var user = result.user;
-        console.log(user);
-      }).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
+  firebase.auth().getRedirectResult().then(function(result) {
+      console.log(result);
+      if (result.credential) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = result.credential.accessToken;
+        console.log(token);
         // ...
-      });
+      }
+      // The signed-in user info.
+      var user = result.user;
+      console.log(user);
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      // ...
+    });
 })
 
 $(document).on("click", "#createAcct", function() {
+  if ($("#loginEmail").is(':hidden')) {
 
-    var email = $("#newEmail").val();
-    var password = $("#NewPsswd").val();
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        console.log(errorCode);
-        var errorMessage = error.message;
-        console.log(errorMessage);
-        // ...
-      });
-
-      window.location.replace("index.html");
+      $("#loginEmail").show();
+      $("#loginPsswd").show();
+  } else {
+  var email = $("#newEmail").val();
+  var password = $("#NewPsswd").val();
+  console.log(email, password);
+  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      console.log(errorCode);
+      var errorMessage = error.message;
+      console.log(errorMessage);
+      // ...
+    });
+  }
 })
 
 $(document).on("click", "#emailLogin", function() {
-    if (!($("#loginEmail").visible())) {
+  if ($("#loginEmail").is(':hidden')) {
 
-        $("#loginEmail").show();
-        $("#loginPsswd").show();
-    } else {
+      $("#loginEmail").show();
+      $("#loginPsswd").show();
+  } else {
 
-    var email = $("#loginEmail").val();
-    var password = $("#loginPsswd").val();
-
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        console.log(errorCode);
-        var errorMessage = error.message;
-        console.log(errorMessage);
-        
-      });
-    }
+  var email = $("#loginEmail").val();
+  var password = $("#loginPsswd").val();
+  console.log(email, password);
+  firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      console.log(errorCode);
+      var errorMessage = error.message;
+      console.log(errorMessage);
+      // ...
+    });
+  }
 })
+
   // object arrays
   var evtArray = [];
   var favArray = [];
@@ -238,4 +239,5 @@ $(document).on("click", "#emailLogin", function() {
       }
 
   })
+
 })
