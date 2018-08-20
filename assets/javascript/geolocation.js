@@ -1,5 +1,6 @@
-   
-     
+  //  var location, var pos, var localState, var localCity have the data
+    var localCity;
+    var localState;
      navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
           lat: position.coords.latitude,
@@ -19,10 +20,14 @@
       if(request.readyState == 4 && request.status == 200){
         var data = JSON.parse(request.responseText);
         var address = data.results[0];
-        console.log("Current location: " + address.address_components[3].short_name + ", " + address.address_components[5].short_name); 
-        localStorage.setItem("Current location: " + address.address_components[3].short_name + ", " + address.address_components[5].short_name);
+
+        var location = ("Current location: " + address.address_components[3].short_name + ", " + address.address_components[5].short_name);
+        localCity = address.address_components[3].short_name;
+        localState = address.address_components[5].short_name;
+        console.log(location);
+        $("#myCity").text(location);
+
     }
-      console.log(address);
     };
     
     request.send();

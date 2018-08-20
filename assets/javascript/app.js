@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
 
     var config = {
@@ -86,6 +87,7 @@ $(document).ready(function() {
       $("#results").append(newDiv);
       newDiv.append(imgDiv);
       newDiv.append(infoDiv);
+
 
       imgDiv.append($("<h2>").text(name));
       imgDiv.append("<img src='" + evtArray[i].images[0].url + "'>");
@@ -205,13 +207,14 @@ $(document).on("click", "#emailLogin", function() {
         console.log(errorCode);
         var errorMessage = error.message;
         console.log(errorMessage);
-        // ...
+        
       });
     }
 })
   // object arrays
   var evtArray = [];
   var favArray = [];
+
 
   //onClick Events
   $(document).on("click", "#artist", artistClick);
@@ -221,3 +224,4 @@ $(document).on("click", "#emailLogin", function() {
     addFavorite($(this).attr('id'));
   })
 })
+

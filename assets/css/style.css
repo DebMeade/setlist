@@ -38,6 +38,11 @@ p {
   text-align: left;
 }
 
+/* #search {
+  justify-content: space-around;
+  display:flex;
+} */
+
 footer {
   text-align: center;
 }
@@ -46,6 +51,7 @@ footer {
   display: block;
   margin: 20px 0;
 }
+
 
 .favorites li{
   list-style-type: none;
@@ -91,3 +97,4 @@ img{
 .form-group {
     size: 50%
 }
+
