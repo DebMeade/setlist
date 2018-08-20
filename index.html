@@ -2,81 +2,85 @@
 <html lang="en" dir="ltr">
 
 <head>
-  <meta charset="utf-8">
-  <title>setlist</title>
-  <!-- favicon -->
-  <link rel="shortcut icon" href="">
-  <!-- stylesheets -->
-  <!-- <link rel="stylesheet" href="css/reset.css"> -->
-  <script src="https://www.gstatic.com/firebasejs/5.4.0/firebase.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/ui/3.3.0/firebase-ui-auth__en.js"></script>
-  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/3.3.0/firebase-ui-auth.css" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/slate/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <!-- javascript -->
+    <meta charset="utf-8">
+    <title>setlist</title>
+    <!-- favicon -->
+    <link rel="shortcut icon" href="">
+    <!-- stylesheets -->
+    <!-- <link rel="stylesheet" href="css/reset.css"> -->
+    <script src="https://www.gstatic.com/firebasejs/5.4.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/3.3.0/firebase-ui-auth__en.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/3.3.0/firebase-ui-auth.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/slate/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- javascript -->
 
 
 </head>
 
 <body>
-  <!-- header -->
-  <div class="container header">
-    <div class="row">
-      <div class="col-md-9">
-        <header>
-          <h1>SET<span>LIST</span></h1>
-        </header>
-      </div>
-      <div class="col-md-3" id="login">
+    <!-- header -->
+    <div class="container header">
+        <div class="row">
+            <div class="col-md-9">
+                <header>
+                    <h1>SET
+                        <span>LIST</span>
+                    </h1>
+                </header>
+            </div>
+
+            <!-- <div class="col-md-3" id="login">
         <input type="text" name="" value="Username">
         <input type="text" name="" value="Password">
         <button type="button" class="btn btn-primary" id="googleLogin">Login with Google</button>
-      </div>
+      </div> -->
+        </div>
     </div>
-  </div>
-  <!-- search -->
-  <div class="container search">
-    <div class="row">
-      <div class="col-md-3" id="">
-      </div>
-      <div class="col-md-6" id="">
-        <!-- <button type="button" name="button" id="artist">Artist Name</button>
+    <!-- search -->
+    <div class="container search">
+        <div class="row">
+            <div class="col-md-3" id="">
+            </div>
+            <div class="col-md-6" id="">
+                <!-- <button type="button" name="button" id="artist">Artist Name</button>
         <button type="button" name="button" id="city">City</button> -->
 
-      </div>
-      <div class="col-md-3" id="">
-      </div>
+            </div>
+            <div class="col-md-3" id="">
+            </div>
+        </div>
     </div>
-  </div>
-  <!-- results -->
-  <div class="container results">
-    <div class="row">
-      <div class="col-md-3" id="search">
-        <h2>Search</h2>
-        <button type="button" name="button" class="buttonSpace" id="artist">Artist Name</button>
-        <button type="button" name="button" class="buttonSpace" id="city">City</button>
-      </div>
-      <div class="col-md-7" id="results">
-        <h2>Events</h2>
-      </div>
-      <div class="col-md-3" id="favorites">
-        <h2>Favorites</h2>
-      </div>
+    <!-- results -->
+    <div class="container results">
+        <div class="row">
+            <div class="col-md-3" id="search">
+                <h2>Search</h2>
+                <button type="button" name="button" class="btn btn-secondary, buttonSpace" id="artist">Artist Name</button>
+                <button type="button" name="button" class="btn btn-secondary, buttonSpace" id="city">City</button>
+            </div>
+            <div class="col-md-7" id="results">
+                <h2>Events</h2>
+            </div>
+            <div class="col-md-2" id="favorites">
+                <h2>Favorites</h2>
+            </div>
+        </div>
     </div>
-  </div>
-  <!-- footer -->
-  <div class="container">
-    <footer>Copyright &copy Team SetList</footer>
-  </div>
+    <!-- footer -->
+    <footer class="footer">
+        <footer>Copyright &copy Team SetList</footer>
+    </footer>
 
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script type="text/javascript" src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
-  <script type="text/javascript" src="assets/javascript/app.js"></script>
-  <script type="text/javascript" src="assets/javascript/geolocation.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
+    <script type="text/javascript" src="assets/javascript/geolocation.js"></script>
 
-  <!-- <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script> -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script> -->
 
 </body>
 

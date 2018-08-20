@@ -8,20 +8,20 @@
  */
 .header{
   text-align: center;
-  border-bottom: 7px solid blue;
+  border-bottom: 3px solid #039BE5;
   padding: 25px;
 }
 h1 {
   padding: 25px;
 }
-h2{
+/* h2{
   font-size: 20px;
   color: black;
-}
-h3 {
+} */
+/* h3 {
   font-size: 18px;
   color: black;
-}
+} */
 .artist-info, .event-info, .results{
   display: block;
   text-align: center;
@@ -77,4 +77,17 @@ img{
     bottom: 0;
     width: 100%;
     padding-bottom: 5px;
+}
+.login {
+    float: right;
+    margin-right:10px;
+}
+.btn btn-primary {
+    size: 50%;
+}
+.btn btn-secondary {
+    size: 50%;
+}
+.form-group {
+    size: 50%
 }
