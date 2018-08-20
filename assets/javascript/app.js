@@ -83,6 +83,9 @@ $(document).ready(function() {
       var newDiv = $("<div class='row result-item' id='result-item-" + i + "'>");
       var imgDiv = $("<div class='col-md-6 artist-info'>");
       var infoDiv = $("<div class='col-md-6 event-info'>");
+      var mapButton = $("<input class='viewMap' type='button' value='View Map' id='" + i + "'>");
+
+      // var mapDivCol = $("<div class='col-md-offset-3 col-md-6'>");
       // $(".result-item").attr("data-resultid", i);
       $("#results").append(newDiv);
       newDiv.append(imgDiv);
@@ -98,6 +101,7 @@ $(document).ready(function() {
       infoDiv.append($("<p>").text(city + ", " + state));
       infoDiv.append($("<p>").text(date));
       infoDiv.append("<a href='" + url + "' target='_blank'>Buy tickets</a>");
+      infoDiv.append(mapButton);
     }
   }
   function queryUrlGen(){
@@ -222,6 +226,20 @@ $(document).on("click", "#emailLogin", function() {
   $(document).on("click", "#submit", submitClick);
   $(document).on("click", ".addFavorite", function() {
     addFavorite($(this).attr('id'));
+  })
+  $(document).on("click", ".viewMap", function(){
+
+        var id = $(this).attr('id');
+        var mapDiv = $("<div class='col-md-12' id='map-item-" + id + "'>");
+        if(!$("#map-item-" + id).attr('id')){
+        $("#result-item-" + id).append(mapDiv);
+        // mapDiv.append(mapDivCol);
+        mapDiv.append("<img src='https://via.placeholder.com/350x150'>");
+      }
+      else {
+        $("#map-item-" + id).remove();
+      }
+
   })
 })
 
