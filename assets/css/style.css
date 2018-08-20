@@ -6,10 +6,29 @@
   999999
   FFFFFF
  */
-header{
+.header{
   text-align: center;
   border-bottom: 7px solid blue;
   padding: 25px;
+}
+h1 {
+  padding: 25px;
+}
+h2{
+  font-size: 20px;
+  color: black;
+}
+h3 {
+  font-size: 18px;
+  color: black;
+}
+.artist-info, .event-info, .results{
+  display: block;
+  text-align: center;
+}
+
+p {
+  font-size: 16px;
 }
 #login {
   padding: 25px;
@@ -26,4 +45,19 @@ footer {
 .input {
   display: block;
   margin: 20px 0;
+}
+
+.favorites li{
+  list-style-type: none;
+
+  display: block;
+}
+img{
+  /* height: 100%; */
+  width: 100%;
+}
+.result-item {
+  margin: 15px;
+  padding: 5px;
+  border: 3px solid black;
 }
