@@ -20,13 +20,11 @@
       if(request.readyState == 4 && request.status == 200){
         var data = JSON.parse(request.responseText);
         var address = data.results[0];
-
         var location = ("Current location: " + address.address_components[3].short_name + ", " + address.address_components[5].short_name);
         localCity = address.address_components[3].short_name;
         localState = address.address_components[5].short_name;
         console.log(location);
         $("#myCity").text(location);
-
     }
     };
     
