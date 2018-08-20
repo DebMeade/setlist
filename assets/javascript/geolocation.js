@@ -12,7 +12,7 @@
     var request = new XMLHttpRequest();
 
     var method = 'GET';
-    var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + "," + position.coords.longitude + '&sensor=true';
+    var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + "," + position.coords.longitude + '&sensor=true';
     var async = true;
 
     request.open(method, url, async);
@@ -20,11 +20,13 @@
       if(request.readyState == 4 && request.status == 200){
         var data = JSON.parse(request.responseText);
         var address = data.results[0];
+
         var location = ("Current location: " + address.address_components[3].short_name + ", " + address.address_components[5].short_name);
         localCity = address.address_components[3].short_name;
         localState = address.address_components[5].short_name;
         console.log(location);
         $("#myCity").text(location);
+
     }
     };
     

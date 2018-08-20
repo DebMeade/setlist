@@ -6,10 +6,29 @@
   999999
   FFFFFF
  */
-header{
+.header{
   text-align: center;
-  border-bottom: 7px solid blue;
+  border-bottom: 3px solid #039BE5;
   padding: 25px;
+}
+h1 {
+  padding: 25px;
+}
+/* h2{
+  font-size: 20px;
+  color: black;
+} */
+/* h3 {
+  font-size: 18px;
+  color: black;
+} */
+.artist-info, .event-info, .results{
+  display: block;
+  text-align: center;
+}
+
+p {
+  font-size: 16px;
 }
 #login {
   padding: 25px;
@@ -33,23 +52,49 @@ footer {
   margin: 20px 0;
 }
 
-#myCity {
-  float: right;
+
+.favorites li{
+  list-style-type: none;
+
+  display: block;
 }
-/* #artist {
-  height: 200px;
-  width: 200px;
-  border-radius: 10px;
-  background-color: blue;
-  color: white;
-  font-size: x-large;
+img{
+  /* height: 100%; */
+  width: 100%;
+}
+.result-item {
+  margin: 15px;
+  padding: 5px;
+  border: 3px solid black;
+}
+.buttonSpace {
+    width: 50%;
+    float: left;
+}
+.searchSpace {
+    width: 100%;
+    float: left;
+}
+.footer {
+    margin-top: 10px;
+    text-align: center;
+    height: 40px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding-bottom: 5px;
+}
+.login {
+    float: right;
+    margin-right:10px;
+}
+.btn btn-primary {
+    size: 50%;
+}
+.btn btn-secondary {
+    size: 50%;
+}
+.form-group {
+    size: 50%
 }
 
-#city {
-  height: 200px;
-  width: 200px;
-  border-radius: 10px;
-  background-color: blue;
-  color: white;
-  font-size: x-large;
-} */
