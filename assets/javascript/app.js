@@ -1,4 +1,16 @@
 $(document).ready(function() {
+
+    var config = {
+        apiKey: "AIzaSyAKSxnbH1ZRtO3Lb1yOnc6JRqa7VIdExQ8",
+        authDomain: "setlist-213420.firebaseapp.com",
+        databaseURL: "https://setlist-213420.firebaseio.com",
+        projectId: "setlist-213420",
+        storageBucket: "setlist-213420.appspot.com",
+        messagingSenderId: "505195451119"
+      };
+      firebase.initializeApp(config);
+
+      database = firebase.database;
   // artist click
   function artistClick() {
     // empty div
@@ -126,6 +138,36 @@ $(document).ready(function() {
     }
   $("#favorites").append("<li>" + evtArray[id].name + "</li>");
 }
+
+$(document).on("click", "#googleLogin", function() {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('profile');
+    provider.addScope('email');
+    console.log(provider);
+
+    firebase.auth().signInWithRedirect(provider);
+
+    firebase.auth().getRedirectResult().then(function(result) {
+        if (result.credential) {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          var token = result.credential.accessToken;
+          console.log(token);
+          // ...
+        }
+        // The signed-in user info.
+        var user = result.user;
+        console.log(user);
+      }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+      });
+})
   // object arrays
   var evtArray = [];
   var favArray = [];
