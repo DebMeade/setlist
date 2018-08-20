@@ -1,23 +1,19 @@
-<<<<<<< HEAD
-=======
+$(document).ready(function () {
 
->>>>>>> 9d6036a6c08d9a9d04756642a799e7ec7cbcf9b0
-$(document).ready(function() {
+  var config = {
+    apiKey: "AIzaSyAKSxnbH1ZRtO3Lb1yOnc6JRqa7VIdExQ8",
+    authDomain: "setlist-213420.firebaseapp.com",
+    databaseURL: "https://setlist-213420.firebaseio.com",
+    projectId: "setlist-213420",
+    storageBucket: "setlist-213420.appspot.com",
+    messagingSenderId: "505195451119"
+  };
+  firebase.initializeApp(config);
 
-    var config = {
-        apiKey: "AIzaSyAKSxnbH1ZRtO3Lb1yOnc6JRqa7VIdExQ8",
-        authDomain: "setlist-213420.firebaseapp.com",
-        databaseURL: "https://setlist-213420.firebaseio.com",
-        projectId: "setlist-213420",
-        storageBucket: "setlist-213420.appspot.com",
-        messagingSenderId: "505195451119"
-      };
-      firebase.initializeApp(config);
+  database = firebase.database;
 
-      database = firebase.database;
-
-      $("#loginEmail").hide();
-      $("#loginPsswd").hide();
+  $("#loginEmail").hide();
+  $("#loginPsswd").hide();
   // artist click
   function artistClick() {
     // empty div
@@ -62,11 +58,56 @@ $(document).ready(function() {
     var submitButton = "<input type='submit' class='btn btn-secondary, buttonSpace' id='submit' value='Submit'>";
     $("#search").append(submitButton);
   }
+
   function submitClick() {
     // var queryUrl = queryUrlGen();
     // console.log(queryUrl);
     ajaxSearch(queryUrlGen());
   }
+
+  function queryUrlGen() {
+    var baseUrl = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=WFgrGCqmfhwpYbGIw5y87YrAwawoL8tv&segmentName=music&sort=date,asc";
+    if ($("#artist-input").val()) {
+      console.log($("#artist-input").val());
+      var artistInput = "&keyword=" + $("#artist-input").val().trim();
+      var artist = artistInput.split(" ").join("+");
+      var city = "&city=";
+      var startDate = "&startDateTime=";
+      var endDate = "&endDateTime=";
+      var venue = "&";
+      var genre = "&classificationName=";
+    } else {
+      var artist = "&keyword=";
+      var city = "&city=" + $("#city-input").val().trim();
+      var startDate = "&startDateTime=" + $("#start-input").val().trim() + "T00:00:00Z";
+      var endDate = "&endDateTime=" + $("#end-input").val().trim() + "T23:59:59Z";
+      var venue = "&";
+      var genre = "&classificationName=" + $("#genre-input").val().trim();
+    }
+    var queryUrl = baseUrl + artist + city + startDate + endDate + genre;
+    return queryUrl;
+  }
+  function ajaxSearch(queryUrl) {
+    $.ajax({
+      url: queryUrl,
+      method: "GET",
+    }).then(function (eventObject) {
+      console.log(eventObject);
+      evtArray = eventObject._embedded.events;
+      appendEvents(evtArray);
+    })
+  }
+  function addFavorite(id) {
+    var searchItem = evtArray[id].name;
+    for (var i = 0; i < favArray.length; i++) {
+      if (favArray[i].name.indexOf(searchItem, 0) === -1) {
+        favArray.push(evtArray[id]);
+        console.log(favArray);
+      }
+    }
+    $("#favorites").append("<li>" + evtArray[id].name + "</li>");
+  }
+
   function appendEvents(evtArray) {
     $("#results").empty();
     var resultHead = "<h2>Events</h2>";
@@ -93,14 +134,10 @@ $(document).ready(function() {
       $("#results").append(newDiv);
       newDiv.append(imgDiv);
       newDiv.append(infoDiv);
-<<<<<<< HEAD
-=======
-
->>>>>>> 9d6036a6c08d9a9d04756642a799e7ec7cbcf9b0
 
       imgDiv.append($("<h2>").text(name));
       imgDiv.append("<img src='" + evtArray[i].images[0].url + "'>");
-      if (!$("#artist-input").val()) {imgDiv.append(addFavorite);}
+      if (!$("#artist-input").val()) { imgDiv.append(addFavorite); }
 
       infoDiv.append($("<h3>").text(venue));
       infoDiv.append($("<p>").text(venueAddr));
@@ -110,59 +147,16 @@ $(document).ready(function() {
       infoDiv.append(mapButton);
     }
   }
-  function queryUrlGen(){
-    var baseUrl = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=WFgrGCqmfhwpYbGIw5y87YrAwawoL8tv&segmentName=music&sort=date,asc";
-    if ($("#artist-input").val()) {
-      console.log($("#artist-input").val());
-      var artistInput = "&keyword=" + $("#artist-input").val().trim();
-      var artist = artistInput.split(" ").join("+");
-      var city = "&city=";
-      var startDate = "&startDateTime=";
-      var endDate = "&endDateTime=";
-      var venue = "&";
-      var genre = "&classificationName=";
-    }
-    else {
-      var artist = "&keyword=";
-      var city = "&city=" + $("#city-input").val().trim();
-      var startDate = "&startDateTime=" + $("#start-input").val().trim() + "T00:00:00Z";
-      var endDate = "&endDateTime=" + $("#end-input").val().trim() + "T23:59:59Z";
-      var venue = "&";
-      var genre = "&classificationName=" + $("#genre-input").val().trim();
-    }
-    var queryUrl = baseUrl + artist + city + startDate + endDate + genre;
-    return queryUrl;
-  }
-  function ajaxSearch(queryUrl) {
-    $.ajax({
-      url: queryUrl,
-      method: "GET",
-    }).then(function(eventObject) {
-      console.log(eventObject);
-      evtArray = eventObject._embedded.events;
-      appendEvents(evtArray);
-    })
-  }
-  function addFavorite(id){
-    var searchItem = evtArray[id].name;
-    for (var i = 0; i < favArray.length; i++) {
-      if (favArray[i].name.indexOf(searchItem, 0) === -1) {
-        favArray.push(evtArray[id]);
-        console.log(favArray);
-      }
-    }
-  $("#favorites").append("<li>" + evtArray[id].name + "</li>");
-}
 
-$(document).on("click", "#googleLogin", function() {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope('profile');
-    provider.addScope('email');
-    console.log(provider);
+    $(document).on("click", "#googleLogin", function () {
+      var provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      console.log(provider);
 
-    firebase.auth().signInWithRedirect(provider);
+      firebase.auth().signInWithRedirect(provider);
 
-    firebase.auth().getRedirectResult().then(function(result) {
+      firebase.auth().getRedirectResult().then(function (result) {
         console.log(result);
         if (result.credential) {
           // This gives you a Google Access Token. You can use it to access the Google API.
@@ -173,7 +167,7 @@ $(document).on("click", "#googleLogin", function() {
         // The signed-in user info.
         var user = result.user;
         console.log(user);
-      }).catch(function(error) {
+      }).catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -183,64 +177,65 @@ $(document).on("click", "#googleLogin", function() {
         var credential = error.credential;
         // ...
       });
-})
+    })
 
-$(document).on("click", "#createAcct", function() {
-
-    var email = $("#newEmail").val();
-    var password = $("#NewPsswd").val();
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        console.log(errorCode);
-        var errorMessage = error.message;
-        console.log(errorMessage);
-        // ...
-      });
-
-      window.location.replace("index.html");
-})
-
-$(document).on("click", "#emailLogin", function() {
-    if (!($("#loginEmail").visible())) {
+    $(document).on("click", "#createAcct", function () {
+      if ($("#loginEmail").is(':hidden')) {
 
         $("#loginEmail").show();
         $("#loginPsswd").show();
-    } else {
+      } else {
+        var email = $("#newEmail").val();
+        var password = $("#NewPsswd").val();
+        console.log(email, password);
+        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          console.log(errorCode);
+          var errorMessage = error.message;
+          console.log(errorMessage);
+          // ...
+        });
+      }
+    })
 
-    var email = $("#loginEmail").val();
-    var password = $("#loginPsswd").val();
+    $(document).on("click", "#emailLogin", function () {
+      if ($("#loginEmail").is(':hidden')) {
 
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        console.log(errorCode);
-        var errorMessage = error.message;
-        console.log(errorMessage);
-        
-      });
-    }
-})
-  // object arrays
-  var evtArray = [];
-  var favArray = [];
+        $("#loginEmail").show();
+        $("#loginPsswd").show();
+      } else {
 
-<<<<<<< HEAD
-=======
+        var email = $("#loginEmail").val();
+        var password = $("#loginPsswd").val();
+        console.log(email, password);
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          console.log(errorCode);
+          var errorMessage = error.message;
+          console.log(errorMessage);
+          // ...
+        });
+      }
+    })
 
->>>>>>> 9d6036a6c08d9a9d04756642a799e7ec7cbcf9b0
-  //onClick Events
-  $(document).on("click", "#artist", artistClick);
-  $(document).on("click", "#city", cityClick);
-  $(document).on("click", "#submit", submitClick);
-  $(document).on("click", ".addFavorite", function() {
-    addFavorite($(this).attr('id'));
-  })
-  $(document).on("click", ".viewMap", function(){
+    // object arrays
+    var evtArray = [];
+    var favArray = [];
 
-        var id = $(this).attr('id');
-        var mapDiv = $("<div class='col-md-12' id='map-item-" + id + "'>");
-        if(!$("#map-item-" + id).attr('id')){
+    //onClick Events
+    $(document).on("click", "#artist", artistClick);
+    $(document).on("click", "#city", cityClick);
+    $(document).on("click", "#submit", submitClick);
+    $(document).on("click", ".addFavorite", function () {
+      addFavorite($(this).attr('id'));
+    })
+    $(document).on("click", ".viewMap", function () {
+
+      var id = $(this).attr('id');
+      var mapDiv = $("<div class='col-md-12' id='map-item-" + id + "'>");
+      if (!$("#map-item-" + id).attr('id')) {
         $("#result-item-" + id).append(mapDiv);
         // mapDiv.append(mapDivCol);
         mapDiv.append("<img src='https://via.placeholder.com/350x150'>");
@@ -249,9 +244,6 @@ $(document).on("click", "#emailLogin", function() {
         $("#map-item-" + id).remove();
       }
 
-  })
-})
-<<<<<<< HEAD
-=======
+    })
 
->>>>>>> 9d6036a6c08d9a9d04756642a799e7ec7cbcf9b0
+  })
