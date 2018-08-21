@@ -1,14 +1,15 @@
 $(document).ready(function () {
 
   var config = {
-    apiKey: "AIzaSyAKSxnbH1ZRtO3Lb1yOnc6JRqa7VIdExQ8",
-    authDomain: "setlist-213420.firebaseapp.com",
-    databaseURL: "https://setlist-213420.firebaseio.com",
-    projectId: "setlist-213420",
-    storageBucket: "setlist-213420.appspot.com",
-    messagingSenderId: "505195451119"
-  };
-  firebase.initializeApp(config);
+        apiKey: "AIzaSyAKSxnbH1ZRtO3Lb1yOnc6JRqa7VIdExQ8",
+        authDomain: "setlist-213420.firebaseapp.com",
+        databaseURL: "https://setlist-213420.firebaseio.com",
+        projectId: "setlist-213420",
+        storageBucket: "setlist-213420.appspot.com",
+        messagingSenderId: "505195451119"
+      };
+      firebase.initializeApp(config);
+
 
   var database = firebase.database();
 //   var query;
@@ -27,16 +28,39 @@ $(document).ready(function () {
     $("#search").empty();
     // artist and city button
     var searchHead = "<h2>Search</h2>";
-    var artButton = "<button type='button' name='button' class='btn btn-secondary, buttonSpace' id='artist'>Artist</button>";
-    var cityButton = "<button type='button' name='button' class='btn btn-secondary, buttonSpace' id='city'>City</button>";
+    var artButton = "<input type='button' name='button' class='btn btn-secondary buttonSpace' id='artist' value='Artist'>";
+    var cityButton = "<input type='button' name='button' class='btn btn-secondary buttonSpace' id='city' value='City'>";
+    var venueButton = "<input type='button' name='button' class='btn btn-secondary buttonSpace' id='venue' value='Venue'>";
+
     $("#search").append(searchHead);
     $("#search").append(artButton);
     $("#search").append(cityButton);
+    $("#search").append(venueButton);
+
     // artist input
     var artistInput = "<input type='text' value='' placeholder='Artist' name='artist' class='btn btn-secondary, input, searchSpace' id='artist-input'>"
     $("#search").append(artistInput);
     // submit button
-    var submitButton = "<input type='submit' class='btn btn-secondary, buttonSpace' id='submit' value='Submit'>";
+    var submitButton = "<input type='submit' class='btn btn-secondary searchSpace' id='submit' value='Submit'>";
+    $("#search").append(submitButton);
+  }
+  function venueClick() {
+    // empty div
+    $("#search").empty();
+    // artist and city button
+    var searchHead = "<h2>Search</h2>";
+    var artButton = "<input type='button' name='button' class='btn btn-secondary buttonSpace' id='artist' value='Artist'>";
+    var cityButton = "<input type='button' name='button' class='btn btn-secondary buttonSpace' id='city' value='City'>";
+    var venueButton = "<input type='button' name='button' class='btn btn-secondary buttonSpace' id='venue' value='Venue'>";
+
+    $("#search").append(searchHead);
+    $("#search").append(artButton);
+    $("#search").append(cityButton);
+    $("#search").append(venueButton);
+
+    var venueInput = "<input type='text' value='' placeholder='Venue' name='venue' class='input, searchSpace' id='venue-input'>"
+    $("#search").append(venueInput);
+    var submitButton = "<input type='submit' class='btn btn-secondary searchSpace' id='submit' value='Submit'>";
     $("#search").append(submitButton);
   }
   // city click
@@ -45,11 +69,13 @@ $(document).ready(function () {
     $("#search").empty();
     // artist and city button
     var searchHead = "<h2>Search</h2>";
-    var artButton = "<input type='button' name='button' class='btn btn-secondary, buttonSpace' id='artist' value='Artist Name'>";
-    var cityButton = "<input type='button' name='button' class='btn btn-secondary, buttonSpace' id='city' value='City'>";
+    var artButton = "<input type='button' name='button' class='btn btn-secondary buttonSpace' id='artist' value='Artist'>";
+    var cityButton = "<input type='button' name='button' class='btn btn-secondary buttonSpace' id='city' value='City'>";
+    var venueButton = "<input type='button' name='button' class='btn btn-secondary buttonSpace' id='venue' value='Venue'>";
     $("#search").append(searchHead);
     $("#search").append(artButton);
     $("#search").append(cityButton);
+    $("#search").append(venueButton);
     // search inputs
     var cityInput = "<input type='text' value='" + localCity + "' placeholder='City' name='city' class='btn btn-secondary, input, searchSpace' id='city-input'>"
     $("#search").append(cityInput);
@@ -57,12 +83,10 @@ $(document).ready(function () {
     $("#search").append(startInput);
     var endInput = "<input type='date' value='' placeholder='End Date' name='end-date' class='btn btn-secondary, input, searchSpace' id='end-input'>"
     $("#search").append(endInput);
-    var genreInput = "<input type='text' value='' placeholder='Venue' name='venue' class='btn btn-secondary, input, searchSpace' id='venue-input'>"
+    var genreInput = "<input type='text' value='' placeholder='Genre' name='genre' class='btn btn-secondary, input, searchSpace' id='genre-input'>"
     $("#search").append(genreInput);
-    var venueInput = "<input type='text' value='' placeholder='Genre' name='venue' class='btn btn-secondary, input, searchSpace' id='genre-input'>"
-    $("#search").append(venueInput);
     // submit button
-    var submitButton = "<input type='submit' class='btn btn-secondary, buttonSpace' id='submit' value='Submit'>";
+    var submitButton = "<input type='submit' class='btn btn-secondary searchSpace' id='submit' value='Submit'>";
     $("#search").append(submitButton);
   }
 
@@ -83,6 +107,13 @@ $(document).ready(function () {
       var endDate = "&endDateTime=";
       var venue = "&";
       var genre = "&classificationName=";
+      var queryUrl = baseUrl + artist + city + startDate + endDate + genre;
+      return queryUrl;
+    } else if ($("#venue-input").val()){
+      baseUrl = "https://app.ticketmaster.com/discovery/v2/venues.json?apikey=WFgrGCqmfhwpYbGIw5y87YrAwawoL8tv&segmentName=music";
+      var venue = "&keyword=" + $("#venue-input").val().split(" ").join("+");
+      var queryUrl = baseUrl + venue;
+      console.log(queryUrl);
     } else {
       var artist = "&keyword=";
       var city = "&city=" + $("#city-input").val().trim();
@@ -90,9 +121,11 @@ $(document).ready(function () {
       var endDate = "&endDateTime=" + $("#end-input").val().trim() + "T23:59:59Z";
       var venue = "&";
       var genre = "&classificationName=" + $("#genre-input").val().trim();
+      var queryUrl = baseUrl + artist + city + startDate + endDate + genre;
+      return queryUrl;
     }
-    var queryUrl = baseUrl + artist + city + startDate + endDate + genre;
-    return queryUrl;
+    
+    
   }
   function ajaxSearch(queryUrl) {
     $.ajax({
@@ -151,12 +184,11 @@ $(document).ready(function () {
       infoDiv.append($("<p>").text(city + ", " + state));
       infoDiv.append("<a href='" + url + "' target='_blank'>View Map</a>");
       infoDiv.append($("<p>").text(date));
-      
+
       infoDiv.append("<a href='" + url + "' target='_blank'>Buy tickets</a>");
-     
+
     }
   }
-
   function getFavorites(user) {
     console.log(user);
     var userid = user.uid;
@@ -309,6 +341,8 @@ $(document).ready(function () {
     //onClick Events
     $(document).on("click", "#artist", artistClick);
     $(document).on("click", "#city", cityClick);
+    $(document).on("click", "#venue", venueClick);
+
     $(document).on("click", "#submit", submitClick);
     $(document).on("click", ".addFavorite", function () {
       addFavorite($(this).attr('id'));
