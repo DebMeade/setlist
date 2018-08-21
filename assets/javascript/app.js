@@ -301,7 +301,7 @@ $(document).ready(function () {
     $(document).on("click", "#logout", function() {
       firebase.auth().signOut();
       $("#googleLogin").show();
-      $("#emailLogin").text("LOGIN WITH Email");
+      $("#emailLogin").text("LOGIN WITH EMAIL");
       $("#emailLogin").show();
       $("#newAcct").text("NEW ACCOUNT");
       $("#newAcct").show();
