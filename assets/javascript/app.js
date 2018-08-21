@@ -10,7 +10,8 @@ $(document).ready(function () {
   };
   firebase.initializeApp(config);
 
-  database = firebase.database;
+  var database = firebase.database;
+  var users = database.child("users");
 
   $("#loginEmail").hide();
   $("#loginPsswd").hide();
@@ -150,6 +151,23 @@ $(document).ready(function () {
     }
   }
 
+  function getFavorites(user) {
+    var userid = user.uid;
+    users.once('value', function(snapshot) {
+      if (!snapshot.hasChild(userid)) {
+        database.ref().push({
+          email: firebase.auth().currentUser.email,
+          uid: firebase.auth().currentUser.uid,
+          favArray: [],
+        }) 
+      } else {
+        for (var i = 0; i < user.favArray; i++) {
+
+        }
+        }
+    })
+  }
+
     $(document).on("click", "#googleLogin", function () {
       var provider = new firebase.auth.GoogleAuthProvider();
       provider.addScope('profile');
@@ -183,6 +201,7 @@ $(document).ready(function () {
       $("#emailLogin").empty();
       $("#newAcct").empty();
       $("#login").append(<p id="logout" class="logins">LOGOUT</p>);
+      getFavorites(firebase.auth());
     })
 
     $(document).on("click", "#newAcct", function () {
@@ -211,6 +230,7 @@ $(document).ready(function () {
         $("#emailLogin").empty();
         $("#newAcct").empty();
         $("#login").append(<p id="logout" class="logins">LOGOUT</p>);
+        getFavorites(firebase.auth());
       }
     })
 
@@ -241,6 +261,7 @@ $(document).ready(function () {
         $("#emailLogin").empty();
         $("#newAcct").empty();
         $("#login").append(<p id="logout" class="logins">LOGOUT</p>);
+        getFavorites(firebase.auth());
       }
     })
 
@@ -248,7 +269,8 @@ $(document).ready(function () {
       firebase.auth().signOut();
       $("#googleLogin").text("LOGIN WITH Google");
       $("#emailLogin").text("LOGIN WITH Email");
-      $("#newAcct").empty("CREATE ACCOUNT");
+      $("#newAcct").text("CREATE ACCOUNT");
+      $("#favorites").empty();
     })
 
     firebase.auth().onAuthStateChanged(function(user) {
