@@ -58,7 +58,7 @@ $(document).ready(function () {
     $("#search").append(cityButton);
     $("#search").append(venueButton);
 
-    var venueInput = "<input type='text' value='' placeholder='Venue' name='venue' class='btn btn-secondary, input, searchSpace' id='venue-input'>"
+    var venueInput = "<input type='text' value='' placeholder='Venue' name='venue' class='input, searchSpace' id='venue-input'>"
     $("#search").append(venueInput);
     var submitButton = "<input type='submit' class='btn btn-secondary searchSpace' id='submit' value='Submit'>";
     $("#search").append(submitButton);
@@ -107,6 +107,13 @@ $(document).ready(function () {
       var endDate = "&endDateTime=";
       var venue = "&";
       var genre = "&classificationName=";
+      var queryUrl = baseUrl + artist + city + startDate + endDate + genre;
+      return queryUrl;
+    } else if ($("#venue-input").val()){
+      baseUrl = "https://app.ticketmaster.com/discovery/v2/venues.json?apikey=WFgrGCqmfhwpYbGIw5y87YrAwawoL8tv&segmentName=music";
+      var venue = "&keyword=" + $("#venue-input").val().split(" ").join("+");
+      var queryUrl = baseUrl + venue;
+      console.log(queryUrl);
     } else {
       var artist = "&keyword=";
       var city = "&city=" + $("#city-input").val().trim();
@@ -114,9 +121,11 @@ $(document).ready(function () {
       var endDate = "&endDateTime=" + $("#end-input").val().trim() + "T23:59:59Z";
       var venue = "&";
       var genre = "&classificationName=" + $("#genre-input").val().trim();
+      var queryUrl = baseUrl + artist + city + startDate + endDate + genre;
+      return queryUrl;
     }
-    var queryUrl = baseUrl + artist + city + startDate + endDate + genre;
-    return queryUrl;
+    
+    
   }
   function ajaxSearch(queryUrl) {
     $.ajax({
