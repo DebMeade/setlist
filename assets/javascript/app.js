@@ -38,7 +38,7 @@ $(document).ready(function () {
     $("#search").empty();
     // artist and city button
     var searchHead = "<h2>Search</h2>";
-    var artButton = "<input type='button' name='button' class='btn btn-secondary, buttonSpace' id='artist' value='Artist Name'>";
+    var artButton = "<input type='button' name='button' class='btn btn-secondary, buttonSpace' id='artist' value='Artist'>";
     var cityButton = "<input type='button' name='button' class='btn btn-secondary, buttonSpace' id='city' value='City'>";
     $("#search").append(searchHead);
     $("#search").append(artButton);
