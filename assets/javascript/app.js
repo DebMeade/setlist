@@ -179,6 +179,10 @@ $(document).ready(function () {
         var credential = error.credential;
         // ...
       });
+      $("#googleLogin").text("Welcome " + firebase.auth().currentUser.email);
+      $("#emailLogin").empty();
+      $("#newAcct").empty();
+      $("#login").append(<p id="logout" class="logins">LOGOUT</p>);
     })
 
     $(document).on("click", "#newAcct", function () {
@@ -203,6 +207,10 @@ $(document).ready(function () {
         $("#loginPsswd").empty();
         $("#loginEmail").hide();
         $("#loginPsswd").hide();
+        $("#googleLogin").text("Welcome " + firebase.auth().currentUser.email);
+        $("#emailLogin").empty();
+        $("#newAcct").empty();
+        $("#login").append(<p id="logout" class="logins">LOGOUT</p>);
       }
     })
 
@@ -229,7 +237,23 @@ $(document).ready(function () {
         $("#loginPsswd").empty();
         $("#loginEmail").hide();
         $("#loginPsswd").hide();
+        $("#googleLogin").text("Welcome " + firebase.auth().currentUser.email);
+        $("#emailLogin").empty();
+        $("#newAcct").empty();
+        $("#login").append(<p id="logout" class="logins">LOGOUT</p>);
       }
+    })
+
+    $(document).on("click", "#logout", function() {
+      firebase.auth().signOut();
+      $("#googleLogin").text("LOGIN WITH Google");
+      $("#emailLogin").text("LOGIN WITH Email");
+      $("#newAcct").empty("CREATE ACCOUNT");
+    })
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      user = user;
+      console.log('user', user);
     })
 
     // object arrays
