@@ -12,6 +12,7 @@
   bottom : 0;
   position: absolute;
   margin-bottom: 0px;
+  padding:5px;
 }
 
 .header{
