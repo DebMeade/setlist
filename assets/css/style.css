@@ -49,7 +49,8 @@ h4{
 p {
  font-size: 16px;
  text-align: left;
- line-height: 10px;
+ line-height: 17px;
+ margin-bottom: 2px;
 }
 #login {
  padding: 25px;
@@ -63,10 +64,6 @@ p {
  justify-content: space-around;
  display:flex;
 } */
-
-footer {
- text-align: center;
-}
 
 .input {
  display: block;
@@ -86,7 +83,7 @@ img{
  margin: 15px;
  padding: 5px;
  border-bottom: 1px solid #039BE5;
- padding-bottom: 10px;
+ padding-bottom: 20px;
 }
 .buttonSpace {
    width: 48%;
@@ -102,10 +99,11 @@ img{
    margin-top: 10px;
    text-align: center;
    height: 40px;
-   position: fixed;
+   position: relative;
    bottom: 0;
    width: 100%;
    padding-bottom: 5px;
+   clear: both;
 }
 .login {
    float: right;
