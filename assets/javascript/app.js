@@ -303,6 +303,7 @@ $(document).ready(function () {
       $("#googleLogin").show();
       $("#emailLogin").text("LOGIN WITH Email");
       $("#emailLogin").show();
+      $("#newAcct").text("NEW ACCOUNT");
       $("#newAcct").show();
       $("#favorites").empty();
       $("#logout").hide();
