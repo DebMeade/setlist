@@ -23,11 +23,16 @@
 }
 h1 {
  padding: 25px;
+ color: #fff;
+ font-size: 48px;
 }
-/* h2{
- font-size: 20px;
- color: black;
-} */
+span{
+    color: #039BE5;
+}
+
+h2{
+ font-size: 24px;
+}
 /* h3 {
  font-size: 18px;
  color: black;
@@ -55,6 +60,7 @@ p {
 }
 #login {
  padding: 25px;
+ color: #039BE5;
 }
 .search {
  padding: 25px;
@@ -138,3 +144,25 @@ body {
   font-weight: bold;
   cursor: pointer;
 }
+.logins {
+    margin-bottom: 5px;
+}
+
+@media screen and (max-width: 993px) {
+.buttonSpace {
+     width:100%
+ }
+}
+@media screen and (max-width: 768px) {
+    #logins {
+        text-align: center;
+    }
+    #search {
+        display: inline block;
+    }
+}
+
+@media screen and (max-width: 640px) {
+
+}
+
