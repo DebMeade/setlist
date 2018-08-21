@@ -11,7 +11,7 @@ $(document).ready(function () {
   firebase.initializeApp(config);
 
   var database = firebase.database();
-  var users = database.child("users");
+  // var users = database.child("users");
 
   $("#loginEmail").hide();
   $("#loginPsswd").hide();
@@ -153,7 +153,7 @@ $(document).ready(function () {
 
   function getFavorites(user) {
     var userid = user.uid;
-    users.once('value', function(snapshot) {
+    database.once('value', function(snapshot) {
       if (!snapshot.hasChild(userid)) {
         database.ref().push({
           email: firebase.auth().currentUser.email,
