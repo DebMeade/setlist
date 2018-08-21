@@ -19,7 +19,7 @@
  text-align: center;
  border-bottom: 3px solid #039BE5;
  padding: 25px 25px 0px 25px;
- 
+
 }
 h1 {
  padding: 25px;
@@ -87,7 +87,7 @@ img{
  padding-bottom: 20px;
 }
 .buttonSpace {
-   width: 48%;
+   width: 32%;
    float: left;
    margin: 2px;
 }
@@ -122,7 +122,5 @@ img{
 
 .logins:hover {
   font-weight: bold;
-  cursor: pointer; 
+  cursor: pointer;
 }
-
-
