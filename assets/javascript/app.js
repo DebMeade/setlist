@@ -234,7 +234,8 @@ $(document).ready(function () {
         $("#loginEmail").show();
         $("#loginPsswd").show();
         $("#googleLogin").hide();
-        $("#newAcct").hide();
+        $("#emailLogin").hide();
+        $("#newAcct").text("LOGIN");
       } else {
         var email = $("#loginEmail").val();
         var password = $("#loginPsswd").val();
