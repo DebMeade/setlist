@@ -60,6 +60,13 @@ p {
  padding: 25px;
  text-align: left;
 }
+.content {
+  background-color: #272B30;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border: 1px solid #039BE5;
+
+}
 
 /* #search {
  justify-content: space-around;
@@ -86,9 +93,16 @@ img{
  border-bottom: 1px solid #039BE5;
  padding-bottom: 20px;
 }
+body {
+  background-image: url('../images/lights.jpeg');
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
 .buttonSpace {
-   width: 32%;
+   width: 31%;
    float: left;
+   /* text-align: center; */
    margin: 2px;
 }
 .searchSpace {

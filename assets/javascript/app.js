@@ -35,7 +35,7 @@ $(document).ready(function () {
     var artistInput = "<input type='text' value='' placeholder='Artist' name='artist' class='btn btn-secondary, input, searchSpace' id='artist-input'>"
     $("#search").append(artistInput);
     // submit button
-    var submitButton = "<input type='submit' class='btn btn-secondary buttonSpace' id='submit' value='Submit'>";
+    var submitButton = "<input type='submit' class='btn btn-secondary searchSpace' id='submit' value='Submit'>";
     $("#search").append(submitButton);
   }
   function venueClick() {
@@ -54,7 +54,7 @@ $(document).ready(function () {
 
     var venueInput = "<input type='text' value='' placeholder='Venue' name='venue' class='btn btn-secondary, input, searchSpace' id='venue-input'>"
     $("#search").append(venueInput);
-    var submitButton = "<input type='submit' class='btn btn-secondary buttonSpace' id='submit' value='Submit'>";
+    var submitButton = "<input type='submit' class='btn btn-secondary searchSpace' id='submit' value='Submit'>";
     $("#search").append(submitButton);
   }
   // city click
@@ -80,7 +80,7 @@ $(document).ready(function () {
     var genreInput = "<input type='text' value='' placeholder='Genre' name='genre' class='btn btn-secondary, input, searchSpace' id='genre-input'>"
     $("#search").append(genreInput);
     // submit button
-    var submitButton = "<input type='submit' class='btn btn-secondary buttonSpace' id='submit' value='Submit'>";
+    var submitButton = "<input type='submit' class='btn btn-secondary searchSpace' id='submit' value='Submit'>";
     $("#search").append(submitButton);
   }
 
