@@ -35,7 +35,6 @@ $(document).ready(function () {
     $("#search").append(searchHead);
     $("#search").append(artButton);
     $("#search").append(cityButton);
-    $("#search").append(venueButton);
 
     // artist input
     var artistInput = "<input type='text' value='' placeholder='Artist' name='artist' class='btn btn-secondary, input, searchSpace' id='artist-input'>"
@@ -44,25 +43,7 @@ $(document).ready(function () {
     var submitButton = "<input type='submit' class='btn btn-secondary searchSpace' id='submit' value='Submit'>";
     $("#search").append(submitButton);
   }
-  function venueClick() {
-    // empty div
-    $("#search").empty();
-    // artist and city button
-    var searchHead = "<h2>Search</h2>";
-    var artButton = "<input type='button' name='button' class='btn btn-secondary buttonSpace' id='artist' value='Artist'>";
-    var cityButton = "<input type='button' name='button' class='btn btn-secondary buttonSpace' id='city' value='City'>";
-    var venueButton = "<input type='button' name='button' class='btn btn-secondary buttonSpace' id='venue' value='Venue'>";
-
-    $("#search").append(searchHead);
-    $("#search").append(artButton);
-    $("#search").append(cityButton);
-    $("#search").append(venueButton);
-
-    var venueInput = "<input type='text' value='' placeholder='Venue' name='venue' class='input, searchSpace' id='venue-input'>"
-    $("#search").append(venueInput);
-    var submitButton = "<input type='submit' class='btn btn-secondary searchSpace' id='submit' value='Submit'>";
-    $("#search").append(submitButton);
-  }
+  
   // city click
   function cityClick() {
     // empty div
@@ -75,7 +56,6 @@ $(document).ready(function () {
     $("#search").append(searchHead);
     $("#search").append(artButton);
     $("#search").append(cityButton);
-    $("#search").append(venueButton);
     // search inputs
     var cityInput = "<input type='text' value='" + localCity + "' placeholder='City' name='city' class='btn btn-secondary, input, searchSpace' id='city-input'>"
     $("#search").append(cityInput);
@@ -109,11 +89,6 @@ $(document).ready(function () {
       var genre = "&classificationName=";
       var queryUrl = baseUrl + artist + city + startDate + endDate + genre;
       return queryUrl;
-    } else if ($("#venue-input").val()){
-      baseUrl = "https://app.ticketmaster.com/discovery/v2/venues.json?apikey=WFgrGCqmfhwpYbGIw5y87YrAwawoL8tv&segmentName=music";
-      var venue = "&keyword=" + $("#venue-input").val().split(" ").join("+");
-      var queryUrl = baseUrl + venue;
-      console.log(queryUrl);
     } else {
       var artist = "&keyword=";
       var city = "&city=" + $("#city-input").val().trim();
@@ -137,6 +112,7 @@ $(document).ready(function () {
       appendEvents(evtArray);
     })
   }
+ 
   function addFavorite(id) {
     var searchItem = evtArray[id].name;
     for (var i = 0; i < favArray.length; i++) {
@@ -167,7 +143,8 @@ $(document).ready(function () {
       var newDiv = $("<div class='row result-item' id='result-item-" + i + "'>");
       var imgDiv = $("<div class='col-md-6 artist-info'>");
       var infoDiv = $("<div class='col-md-6 event-info'>");
-    //   var mapButton = $("<input class='viewMap' type='button' value='View Map' id='" + i + "'>");
+      var mapButton = $("<input class='viewMap btn btn-secondary btn-sm' type='button' value='View Map' id='" + i + "'>");
+      var tktButton = $("<a href='" + url + "' target='_blank'><input class='btn btn-secondary btn-sm' type='button' value='Buy Tickets'></a>");
 
       // var mapDivCol = $("<div class='col-md-offset-3 col-md-6'>");
       // $(".result-item").attr("data-resultid", i);
@@ -182,10 +159,10 @@ $(document).ready(function () {
       infoDiv.append($("<h4>").text(venue));
       infoDiv.append($("<p>").text(venueAddr));
       infoDiv.append($("<p>").text(city + ", " + state));
-      infoDiv.append("<a href='" + url + "' target='_blank'>View Map</a>");
+      infoDiv.append(mapButton);
       infoDiv.append($("<p>").text(date));
 
-      infoDiv.append("<a href='" + url + "' target='_blank'>Buy tickets</a>");
+      infoDiv.append(tktButton);
 
     }
   }
@@ -230,6 +207,13 @@ $(document).ready(function () {
         // The signed-in user info.
         var user = result.user;
         console.log(user);
+      }).then(function () {
+        $("#googleLogin").hide();
+        $("#emailLogin").hide();
+        $("#newAcct").hide();
+        $("#login").append('<p id="welcome" class="logins">Welcome ' + firebase.auth().currentUser.email + '</p>');
+        $("#login").append('<p id="logout" class="logins">LOGOUT</p>');
+        getFavorites(firebase.auth());
       }).catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -240,12 +224,7 @@ $(document).ready(function () {
         var credential = error.credential;
         // ...
       });
-      $("#googleLogin").hide();
-      $("#emailLogin").hide();
-      $("#newAcct").hide();
-      $("#login").append('<p id="welcome" class="logins">Welcome ' + firebase.auth().currentUser.email + '</p>');
-      $("#login").append('<p id="logout" class="logins">LOGOUT</p>');
-      getFavorites(firebase.auth());
+      
     })
 
     $(document).on("click", "#newAcct", function () {
@@ -341,7 +320,6 @@ $(document).ready(function () {
     //onClick Events
     $(document).on("click", "#artist", artistClick);
     $(document).on("click", "#city", cityClick);
-    $(document).on("click", "#venue", venueClick);
 
     $(document).on("click", "#submit", submitClick);
     $(document).on("click", ".addFavorite", function () {
@@ -353,8 +331,24 @@ $(document).ready(function () {
       var mapDiv = $("<div class='col-md-12' id='map-item-" + id + "'>");
       if (!$("#map-item-" + id).attr('id')) {
         $("#result-item-" + id).append(mapDiv);
-        // mapDiv.append(mapDivCol);
-        mapDiv.append("<img src='https://via.placeholder.com/350x150'>");
+
+        var buttonId = $(this).attr("id");
+
+        console.log(buttonId, $(this));
+        console.log("========: ", document.getElementById(buttonId).parentElement.childNodes[0].textContent);
+        venueAddr = document.getElementById(buttonId).parentElement.childNodes[0].textContent;
+        console.log(venueAddr);
+        city = document.getElementById(buttonId).parentElement.childNodes[1].textContent;
+        state = document.getElementById(buttonId).parentElement.childNodes[2].textContent.split(",").join("");
+        // Space+Needle,Seattle+WA"
+        mapBroodle = venueAddr.split(' ').join('+') + "," + state.split(' ').join('+');
+        console.log(state);
+        console.log(city);
+        console.log(mapBroodle);
+        // mapBroodle = "venueAddr.val().split(' ').join('+') + city.val().split(' ').join('+') + state.val().split(' ').join('+')";
+        // mapDiv.append("<img src='https://via.placeholder.com/350x150'>");
+        mapDiv.append("<iframe width='100%' height='250' class='mt-3' frameborder='0' style='border:0' src='https://www.google.com/maps/embed/v1/place?key=AIzaSyAtuxyQe-XsjbN0QhkLtXda8nW6M1hQsw4&q=" + mapBroodle + "' allowfullscreen></iframe>");
+      //  console.log(mapBroodle);
       }
       else {
         $("#map-item-" + id).remove();
