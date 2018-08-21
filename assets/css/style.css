@@ -12,13 +12,14 @@
   bottom : 0;
   position: absolute;
   margin-bottom: 0px;
+  padding:5px;
 }
 
 .header{
  text-align: center;
  border-bottom: 3px solid #039BE5;
  padding: 25px 25px 0px 25px;
- 
+
 }
 h1 {
  padding: 25px;
@@ -49,7 +50,8 @@ h4{
 p {
  font-size: 16px;
  text-align: left;
- line-height: 10px;
+ line-height: 17px;
+ margin-bottom: 2px;
 }
 #login {
  padding: 25px;
@@ -58,15 +60,18 @@ p {
  padding: 25px;
  text-align: left;
 }
+.content {
+  background-color: #272B30;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border: 1px solid #039BE5;
+
+}
 
 /* #search {
  justify-content: space-around;
  display:flex;
 } */
-
-footer {
- text-align: center;
-}
 
 .input {
  display: block;
@@ -86,11 +91,18 @@ img{
  margin: 15px;
  padding: 5px;
  border-bottom: 1px solid #039BE5;
- padding-bottom: 10px;
+ padding-bottom: 20px;
+}
+body {
+  background-image: url('../images/lights.jpeg');
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
 }
 .buttonSpace {
-   width: 48%;
+   width: 31%;
    float: left;
+   /* text-align: center; */
    margin: 2px;
 }
 .searchSpace {
@@ -102,10 +114,11 @@ img{
    margin-top: 10px;
    text-align: center;
    height: 40px;
-   position: fixed;
+   position: relative;
    bottom: 0;
    width: 100%;
    padding-bottom: 5px;
+   clear: both;
 }
 .login {
    float: right;
@@ -123,7 +136,5 @@ img{
 
 .logins:hover {
   font-weight: bold;
-  cursor: pointer; 
+  cursor: pointer;
 }
-
-
