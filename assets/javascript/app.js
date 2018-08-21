@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+  
   var config = {
     apiKey: "AIzaSyAKSxnbH1ZRtO3Lb1yOnc6JRqa7VIdExQ8",
     authDomain: "setlist-213420.firebaseapp.com",
@@ -11,7 +11,13 @@ $(document).ready(function () {
   firebase.initializeApp(config);
 
   database = firebase.database;
+  var venueAddr;
+  var mapBroodle;
+  var city;
+  var state;
 
+  var name;
+  var venue;
   $("#loginEmail").hide();
   $("#loginPsswd").hide();
   // artist click
@@ -71,17 +77,17 @@ $(document).ready(function () {
       console.log($("#artist-input").val());
       var artistInput = "&keyword=" + $("#artist-input").val().trim();
       var artist = artistInput.split(" ").join("+");
-      var city = "&city=";
+      city = "&city=";
       var startDate = "&startDateTime=";
       var endDate = "&endDateTime=";
-      var venue = "&";
+      venue = "&";
       var genre = "&classificationName=";
     } else {
       var artist = "&keyword=";
-      var city = "&city=" + $("#city-input").val().trim();
+      city = "&city=" + $("#city-input").val().trim();
       var startDate = "&startDateTime=" + $("#start-input").val().trim() + "T00:00:00Z";
       var endDate = "&endDateTime=" + $("#end-input").val().trim() + "T23:59:59Z";
-      var venue = "&";
+      venue = "&";
       var genre = "&classificationName=" + $("#genre-input").val().trim();
     }
     var queryUrl = baseUrl + artist + city + startDate + endDate + genre;
@@ -116,9 +122,9 @@ $(document).ready(function () {
     for (var i = 0; i < evtArray.length; i++) {
       var name = evtArray[i].name;
       var venue = evtArray[i]._embedded.venues[0].name;
-      var venueAddr = evtArray[i]._embedded.venues[0].address.line1;
-      var city = evtArray[i]._embedded.venues[0].city.name;
-      var state = evtArray[i]._embedded.venues[0].state.stateCode;
+      venueAddr = evtArray[i]._embedded.venues[0].address.line1;
+      city = evtArray[i]._embedded.venues[0].city.name;
+      state = evtArray[i]._embedded.venues[0].state.stateCode;
       var date = moment(evtArray[i].dates.start.dateTime).format("dddd, MMMM Do YYYY, h:mm a");
       var url = evtArray[i].url;
 
@@ -139,9 +145,9 @@ $(document).ready(function () {
       imgDiv.append("<img src='" + evtArray[i].images[0].url + "'>");
       if (!$("#artist-input").val()) { imgDiv.append(addFavorite); }
 
-      infoDiv.append($("<h3>").text(venue));
-      infoDiv.append($("<p>").text(venueAddr));
-      infoDiv.append($("<p>").text(city + ", " + state));
+      infoDiv.append($("<h3 class='broodle'>").text(venue));
+      infoDiv.append($("<p class='broodle'>").text(venueAddr));
+      infoDiv.append($("<p class='broodle'>").text(city + ", " + state));
       infoDiv.append($("<p>").text(date));
       infoDiv.append("<a href='" + url + "' target='_blank'>Buy tickets</a>");
       infoDiv.append(mapButton);
@@ -238,7 +244,24 @@ $(document).ready(function () {
       if (!$("#map-item-" + id).attr('id')) {
         $("#result-item-" + id).append(mapDiv);
         // mapDiv.append(mapDivCol);
-        mapDiv.append("<img src='https://via.placeholder.com/350x150'>");
+        
+        var buttonId = $(this).attr("id");
+        
+        console.log(buttonId,$(this));
+        console.log("========: ", document.getElementById(buttonId).parentElement.childNodes[0].textContent);
+      venueAddr = document.getElementById(buttonId).parentElement.childNodes[0].textContent;
+     console.log(venueAddr);
+      city = document.getElementById(buttonId).parentElement.childNodes[1].textContent;
+      state = document.getElementById(buttonId).parentElement.childNodes[2].textContent.split(",").join("");
+        // Space+Needle,Seattle+WA"
+        mapBroodle = venueAddr.split(' ').join('+') + "," + state.split(' ').join('+');
+        console.log(state);
+        console.log(city);
+        console.log(mapBroodle);
+        // mapBroodle = "venueAddr.val().split(' ').join('+') + city.val().split(' ').join('+') + state.val().split(' ').join('+')";
+        // mapDiv.append("<img src='https://via.placeholder.com/350x150'>");
+         mapDiv.append("<iframe width='100%' height='250' class='mt-3' frameborder='0' style='border:0' src='https://www.google.com/maps/embed/v1/place?key=AIzaSyAtuxyQe-XsjbN0QhkLtXda8nW6M1hQsw4&q=" + mapBroodle + "' allowfullscreen></iframe>");
+      //  console.log(mapBroodle);
       }
       else {
         $("#map-item-" + id).remove();
@@ -247,3 +270,5 @@ $(document).ready(function () {
     })
 
   })
+  // "venueAddr.val().split(' ').join('+')" + "+city.val().split(' ').join('+')" + "state.val().split(' ').join('+')";
+  // split(" ").join("+")
