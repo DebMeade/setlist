@@ -194,7 +194,14 @@ $(document).ready(function () {
       provider.addScope('email');
       console.log(provider);
 
-      firebase.auth().signInWithRedirect(provider);
+      firebase.auth().signInWithRedirect(provider).then(function () {
+        $("#googleLogin").hide();
+        $("#emailLogin").hide();
+        $("#newAcct").hide();
+        $("#login").append('<p id="welcome" class="logins">Welcome ' + firebase.auth().currentUser.email + '</p>');
+        $("#login").append('<p id="logout" class="logins">LOGOUT</p>');
+        getFavorites(firebase.auth());
+      });
 
       firebase.auth().getRedirectResult().then(function (result) {
         console.log(result);
@@ -207,13 +214,6 @@ $(document).ready(function () {
         // The signed-in user info.
         var user = result.user;
         console.log(user);
-      }).then(function () {
-        $("#googleLogin").hide();
-        $("#emailLogin").hide();
-        $("#newAcct").hide();
-        $("#login").append('<p id="welcome" class="logins">Welcome ' + firebase.auth().currentUser.email + '</p>');
-        $("#login").append('<p id="logout" class="logins">LOGOUT</p>');
-        getFavorites(firebase.auth());
       }).catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
