@@ -20,7 +20,7 @@ $(document).ready(function () {
     $("#search").empty();
     // artist and city button
     var searchHead = "<h2>Search</h2>";
-    var artButton = "<button type='button' name='button' class='btn btn-secondary, buttonSpace' id='artist'>Artist Name</button>";
+    var artButton = "<button type='button' name='button' class='btn btn-secondary, buttonSpace' id='artist'>Artist</button>";
     var cityButton = "<button type='button' name='button' class='btn btn-secondary, buttonSpace' id='city'>City</button>";
     $("#search").append(searchHead);
     $("#search").append(artButton);
@@ -127,7 +127,7 @@ $(document).ready(function () {
       var newDiv = $("<div class='row result-item' id='result-item-" + i + "'>");
       var imgDiv = $("<div class='col-md-6 artist-info'>");
       var infoDiv = $("<div class='col-md-6 event-info'>");
-      var mapButton = $("<input class='viewMap' type='button' value='View Map' id='" + i + "'>");
+    //   var mapButton = $("<input class='viewMap' type='button' value='View Map' id='" + i + "'>");
 
       // var mapDivCol = $("<div class='col-md-offset-3 col-md-6'>");
       // $(".result-item").attr("data-resultid", i);
@@ -135,16 +135,18 @@ $(document).ready(function () {
       newDiv.append(imgDiv);
       newDiv.append(infoDiv);
 
-      imgDiv.append($("<h2>").text(name));
+      imgDiv.append($("<h3>").text(name));
       imgDiv.append("<img src='" + evtArray[i].images[0].url + "'>");
       if (!$("#artist-input").val()) { imgDiv.append(addFavorite); }
 
-      infoDiv.append($("<h3>").text(venue));
+      infoDiv.append($("<h4>").text(venue));
       infoDiv.append($("<p>").text(venueAddr));
       infoDiv.append($("<p>").text(city + ", " + state));
+      infoDiv.append("<a href='" + url + "' target='_blank'>View Map</a>");
       infoDiv.append($("<p>").text(date));
+      
       infoDiv.append("<a href='" + url + "' target='_blank'>Buy tickets</a>");
-      infoDiv.append(mapButton);
+     
     }
   }
 
