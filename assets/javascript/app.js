@@ -179,14 +179,15 @@ $(document).ready(function () {
       });
     })
 
-    $(document).on("click", "#createAcct", function () {
+    $(document).on("click", "#newAcct", function () {
+      console.log($("#loginEmail").is(':hidden'));
       if ($("#loginEmail").is(':hidden')) {
 
         $("#loginEmail").show();
         $("#loginPsswd").show();
       } else {
-        var email = $("#newEmail").val();
-        var password = $("#NewPsswd").val();
+        var email = $("#loginEmail").val();
+        var password = $("#loginPsswd").val();
         console.log(email, password);
         firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
           // Handle Errors here.
@@ -196,10 +197,15 @@ $(document).ready(function () {
           console.log(errorMessage);
           // ...
         });
+        $("#loginEmail").empty();
+        $("#loginPsswd").empty();
+        $("#loginEmail").hide();
+        $("#loginPsswd").hide();
       }
     })
 
     $(document).on("click", "#emailLogin", function () {
+      console.log($("#loginEmail").is(':hidden'));
       if ($("#loginEmail").is(':hidden')) {
 
         $("#loginEmail").show();
@@ -214,9 +220,13 @@ $(document).ready(function () {
           var errorCode = error.code;
           console.log(errorCode);
           var errorMessage = error.message;
-          console.log(errorMessage);
+          console.log('login error', errorMessage);
           // ...
         });
+        $("#loginEmail").empty();
+        $("#loginPsswd").empty();
+        $("#loginEmail").hide();
+        $("#loginPsswd").hide();
       }
     })
 
