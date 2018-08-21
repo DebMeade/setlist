@@ -10,7 +10,7 @@ $(document).ready(function () {
   };
   firebase.initializeApp(config);
 
-  var database = firebase.database;
+  var database = firebase.database();
   var users = database.child("users");
 
   $("#loginEmail").hide();
