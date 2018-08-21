@@ -229,7 +229,7 @@ $(document).ready(function () {
         $("#googleLogin").text("Welcome " + firebase.auth().currentUser.email);
         $("#emailLogin").empty();
         $("#newAcct").empty();
-        $("#login").append(<p id="logout" class="logins">LOGOUT</p>);
+        $("#login").append('<p id="logout" class="logins">LOGOUT</p>');
         getFavorites(firebase.auth());
       }
     })
@@ -260,7 +260,7 @@ $(document).ready(function () {
         $("#googleLogin").text("Welcome " + firebase.auth().currentUser.email);
         $("#emailLogin").empty();
         $("#newAcct").empty();
-        $("#login").append(<p id="logout" class="logins">LOGOUT</p>);
+        $("#login").append('<p id="logout" class="logins">LOGOUT</p>');
         getFavorites(firebase.auth());
       }
     })
