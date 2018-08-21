@@ -11,6 +11,12 @@ $(document).ready(function () {
   firebase.initializeApp(config);
 
   var database = firebase.database();
+//   var query;
+//   function callThis() {
+//     query.on('child_added', function(snapshot) {
+//         snapshot.ref("/users").update({ favArray: ["testing"] });
+//     });
+// }
   // var users = database.child("users");
 
   $("#loginEmail").hide();
@@ -152,14 +158,19 @@ $(document).ready(function () {
   }
 
   function getFavorites(user) {
+    console.log(user);
     var userid = user.uid;
-    database.once('value', function(snapshot) {
+    console.log(userid);
+    database.ref('/users').once('value', function(snapshot) {
       if (!snapshot.hasChild(userid)) {
-        database.ref().push({
-          email: firebase.auth().currentUser.email,
-          uid: firebase.auth().currentUser.uid,
-          favArray: [],
+        database.ref('/users').push({
+          email: user.email,
+          uid: user.uid,
+          favArray: [42],
         }) 
+        console.log(database.ref('/users/' + userid));
+        // query = database.ref('/users').orderByChild('uid').equalTo(firebase.auth().currentUser.uid);
+        console.log(database.ref('/users').orderByChild('uid').equalTo(firebase.auth().currentUser.uid))
       } else {
         for (var i = 0; i < user.favArray; i++) {
 
@@ -197,9 +208,10 @@ $(document).ready(function () {
         var credential = error.credential;
         // ...
       });
-      $("#googleLogin").text("Welcome " + firebase.auth().currentUser.email);
-      $("#emailLogin").empty();
-      $("#newAcct").empty();
+      $("#googleLogin").hide();
+      $("#emailLogin").hide();
+      $("#newAcct").hide();
+      $("#login").append('<p id="welcome" class="logins">Welcome ' + firebase.auth().currentUser.email + '</p>');
       $("#login").append('<p id="logout" class="logins">LOGOUT</p>');
       getFavorites(firebase.auth());
     })
@@ -210,6 +222,8 @@ $(document).ready(function () {
 
         $("#loginEmail").show();
         $("#loginPsswd").show();
+        $("#googleLogin").hide();
+        $("#newAcct").hide();
       } else {
         var email = $("#loginEmail").val();
         var password = $("#loginPsswd").val();
@@ -226,9 +240,10 @@ $(document).ready(function () {
         $("#loginPsswd").empty();
         $("#loginEmail").hide();
         $("#loginPsswd").hide();
-        $("#googleLogin").text("Welcome " + firebase.auth().currentUser.email);
-        $("#emailLogin").empty();
-        $("#newAcct").empty();
+        $("#googleLogin").hide();
+        $("#emailLogin").hide();
+        $("#newAcct").hide();
+        $("#login").append('<p id="welcome" class="logins">Welcome ' + email + '</p>');
         $("#login").append('<p id="logout" class="logins">LOGOUT</p>');
         getFavorites(firebase.auth());
       }
@@ -240,12 +255,26 @@ $(document).ready(function () {
 
         $("#loginEmail").show();
         $("#loginPsswd").show();
+        $("#googleLogin").hide();
+        $("#newAcct").hide();
+        $("#emailLogin").text("LOGIN");
       } else {
 
         var email = $("#loginEmail").val();
         var password = $("#loginPsswd").val();
         console.log(email, password);
-        firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+        firebase.auth().signInWithEmailAndPassword(email, password).then(function () {
+          $("#loginEmail").empty();
+          $("#loginPsswd").empty();
+          $("#loginEmail").hide();
+          $("#loginPsswd").hide();
+          console.log(email);
+          $("#emailLogin").hide();
+          $("#login").append('<p id="welcome" class="logins">Welcome ' + email + '</p>');
+          $("#login").append('<p id="logout" class="logins">LOGOUT</p>');
+          console.log(firebase.auth().currentUser);
+          getFavorites(firebase.auth().currentUser);
+        }).catch(function (error) {
           // Handle Errors here.
           var errorCode = error.code;
           console.log(errorCode);
@@ -253,24 +282,19 @@ $(document).ready(function () {
           console.log('login error', errorMessage);
           // ...
         });
-        $("#loginEmail").empty();
-        $("#loginPsswd").empty();
-        $("#loginEmail").hide();
-        $("#loginPsswd").hide();
-        $("#googleLogin").text("Welcome " + firebase.auth().currentUser.email);
-        $("#emailLogin").empty();
-        $("#newAcct").empty();
-        $("#login").append('<p id="logout" class="logins">LOGOUT</p>');
-        getFavorites(firebase.auth());
+        
       }
     })
 
     $(document).on("click", "#logout", function() {
       firebase.auth().signOut();
-      $("#googleLogin").text("LOGIN WITH Google");
+      $("#googleLogin").show();
       $("#emailLogin").text("LOGIN WITH Email");
-      $("#newAcct").text("CREATE ACCOUNT");
+      $("#emailLogin").show();
+      $("#newAcct").show();
       $("#favorites").empty();
+      $("#logout").hide();
+      $("#welcome").hide();
     })
 
     firebase.auth().onAuthStateChanged(function(user) {
