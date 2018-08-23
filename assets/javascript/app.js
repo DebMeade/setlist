@@ -172,10 +172,11 @@ $(document).ready(function () {
     console.log(userid);
     database.ref('/users').once('value', function(snapshot) {
       if (!snapshot.hasChild(userid)) {
-        database.ref('/users').push({
+        database.ref('/users').set({
+          userid: {
           email: user.email,
-          uid: user.uid,
           favArray: [42],
+          }
         }) 
         console.log(database.ref('/users/' + userid));
         // query = database.ref('/users').orderByChild('uid').equalTo(firebase.auth().currentUser.uid);
