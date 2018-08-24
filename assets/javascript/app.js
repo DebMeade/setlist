@@ -92,9 +92,16 @@ $(document).ready(function () {
     } else {
       var artist = "&keyword=";
       var city = "&city=" + $("#city-input").val().trim();
-      var startDate = "&startDateTime=" + $("#start-input").val().trim() + "T00:00:00Z";
-      var endDate = "&endDateTime=" + $("#end-input").val().trim() + "T23:59:59Z";
-      var venue = "&";
+      if ($("#start-input").val()) {
+        var startDate = "&startDateTime=" + $("#start-input").val().trim() + "T00:00:00Z";
+      } else {
+        var startDate = "";
+      }
+      if ($("#end-input").val()) {
+        var endDate = "&endDateTime=" + $("#end-input").val().trim() + "T23:59:59Z";
+      } else {
+        var endDate = "";
+      }
       var genre = "&classificationName=" + $("#genre-input").val().trim();
       var queryUrl = baseUrl + artist + city + startDate + endDate + genre;
       return queryUrl;
@@ -170,14 +177,12 @@ $(document).ready(function () {
     console.log(user);
     var userid = user.uid;
     console.log(userid);
-    database.ref('/users').once('value', function(snapshot) {
+    database.ref('/users').once('value', function (snapshot) {
       if (!snapshot.hasChild(userid)) {
-        database.ref('/users').set({
-          userid: {
-          email: user.email,
-          favArray: [42],
-          }
-        }) 
+        database.ref('/users').child(userid).set({
+            email: user.email,
+            favArray: [42],
+          })
         console.log(database.ref('/users/' + userid));
         // query = database.ref('/users').orderByChild('uid').equalTo(firebase.auth().currentUser.uid);
         console.log(database.ref('/users').orderByChild('uid').equalTo(firebase.auth().currentUser.uid))
@@ -185,7 +190,7 @@ $(document).ready(function () {
         for (var i = 0; i < user.favArray; i++) {
 
         }
-        }
+      }
     })
   }
 
@@ -195,14 +200,7 @@ $(document).ready(function () {
       provider.addScope('email');
       console.log(provider);
 
-      firebase.auth().signInWithRedirect(provider).then(function () {
-        $("#googleLogin").hide();
-        $("#emailLogin").hide();
-        $("#newAcct").hide();
-        $("#login").append('<p id="welcome" class="logins">Welcome ' + firebase.auth().currentUser.email + '</p>');
-        $("#login").append('<p id="logout" class="logins">LOGOUT</p>');
-        getFavorites(firebase.auth());
-      });
+      firebase.auth().signInWithRedirect(provider)
 
       firebase.auth().getRedirectResult().then(function (result) {
         console.log(result);
@@ -225,6 +223,12 @@ $(document).ready(function () {
         var credential = error.credential;
         // ...
       });
+        $("#googleLogin").hide();
+        $("#emailLogin").hide();
+        $("#newAcct").hide();
+        $("#login").append('<p id="welcome" class="logins">Welcome ' + firebase.auth().currentUser.email + '</p>');
+        $("#login").append('<p id="logout" class="logins">LOGOUT</p>');
+        getFavorites(firebase.auth().currentUser);
       
     })
 
@@ -258,7 +262,7 @@ $(document).ready(function () {
         $("#newAcct").hide();
         $("#login").append('<p id="welcome" class="logins">Welcome ' + email + '</p>');
         $("#login").append('<p id="logout" class="logins">LOGOUT</p>');
-        getFavorites(firebase.auth());
+        getFavorites(firebase.auth().currentUser);
       }
     })
 
